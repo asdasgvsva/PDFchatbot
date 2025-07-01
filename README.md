@@ -32,27 +32,6 @@ flowchart TD
 
 ---
 
-## 실행 방법
-
-1. Docker 이미지 빌드
-   ```bash
-   docker build -t rag-fastapi-app .
-   ```
-2. 컨테이너 실행 (API Key는 환경변수로 전달)
-   ```bash
-   docker run -d -p 8000:8000 --env OPENAI_API_KEY=your_openai_key rag-fastapi-app
-   ```
-3. API 문서: http://localhost:8000/docs
-
----
-
-## 테스트
-
-- pytest로 주요 기능 테스트
-- 외부 API는 Mocking 처리해서 테스트
-
----
-
 ## 환경변수
 
 - .env 파일 또는 Docker 환경변수로 OpenAI API Key 등 관리
