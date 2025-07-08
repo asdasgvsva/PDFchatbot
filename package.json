@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "react-icons": "^5.5.0"
+  },
+  "name": "fastapi_rag",
+  "version": "1.0.0",
+  "description": "이 프로젝트는 Russell 2000(미국 소형주 지수) 관련 최신 뉴스와 RAG(Retrieval-Augmented Generation) 기반 챗봇을 제공하는 서비스입니다. 실시간 지수, 환율, 뉴스, 그리고 자연어 질의응답 기능을 갖춘 실제 서비스 수준의 웹앱을 목표로 합니다.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asdasgvsva/PDFchatbot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/asdasgvsva/PDFchatbot/issues"
+  },
+  "homepage": "https://github.com/asdasgvsva/PDFchatbot#readme"
+}
