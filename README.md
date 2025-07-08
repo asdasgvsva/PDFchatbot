@@ -1,60 +1,62 @@
-# RAG 문서 QA API
+# Russell 2000 RAG 기반 뉴스/챗봇 서비스
 
-이 프로젝트는 FastAPI와 LangChain, OpenAI API를 이용해서 문서 기반 질의응답 API를 만드는 실습용 프로젝트입니다. 문서를 업로드하면 임베딩해서 벡터DB에 저장하고, 질문이 들어오면 관련 내용을 찾아서 OpenAI로 답변을 생성합니다. 개발과 테스트, 그리고 Docker로 패키징해서 환경에 상관없이 실행할 수 있도록 했습니다.
+이 프로젝트는 Russell 2000(미국 소형주 지수) 관련 최신 뉴스와 RAG(Retrieval-Augmented Generation) 기반 챗봇을 제공하는 서비스입니다. 실시간 지수, 환율, 뉴스, 그리고 자연어 질의응답 기능을 갖춘 실제 서비스 수준의 웹앱을 목표로 합니다.
 
----
+## 주요 기능
+- Russell 2000, S&P500, 환율 등 주요 지수 실시간 표시
+- Russell 2000 종목별/전체 뉴스 수집 및 요약
+- 뉴스/공시/문서 기반 RAG 챗봇(질문→최신 정보 기반 답변)
+- 번역(영문→한국어) 지원
+- 반응형 UI/UX
 
-## 사용 기술 및 구성
+## 기술 스택
+- **백엔드**: FastAPI, Python, MongoDB, ChromaDB, OpenAI API, yfinance, Finnhub, Alpha Vantage
+- **프론트엔드**: React, TypeScript, styled-components, recharts, axios
+- **번역**: Google 번역 API 또는 파파고
+- **배포**: Docker, docker-compose
 
-- FastAPI: Python 비동기 API 서버
-- Uvicorn: ASGI 서버
-- LangChain: 문서 임베딩/검색 파이프라인
-- ChromaDB: 벡터 DB
-- OpenAI API: 답변 생성
-- Docker: 컨테이너 패키징
-- python-dotenv: 환경변수 관리
-- pytest: 테스트 코드 작성 (외부 API는 Mocking)
-
----
-
-## 아키텍처
-
-```mermaid
-flowchart TD
-    A["사용자"] -->|"HTTP 요청"| B["FastAPI (Docker)"]
-    B -->|"문서 업로드/질의"| C["임베딩/검색"]
-    C -->|"관련 문서"| D["OpenAI API"]
-    D -->|"답변"| B
-    B -->|"HTTP 응답"| A
-    B -.->|"정적 파일 제공"| E["Static Files"]
-    B -->|"API Key 관리"| F["환경변수"]
+## 폴더 구조
+```
+backend/
+  main.py
+  requirements.txt
+  data/
+    fetch_tickers.py
+    fetch_indices.py
+    fetch_news.py
+  rag/
+    embedding.py
+    retrieval.py
+    chatbot.py
+  db/
+    mongo.py
+    chroma.py
+  utils/
+    translate.py
+frontend/
+  src/
+    components/
+      Header.tsx
+      IndicesBar.tsx
+      NewsList.tsx
+      Chatbot.tsx
+    App.tsx
+    index.tsx
+  package.json
+  tsconfig.json
+docker-compose.yml
+README.md
 ```
 
----
-
-## 환경변수
-
-- .env 파일 또는 Docker 환경변수로 OpenAI API Key 등 관리
-
----
-
-## 주요 파일
-
-```
-main.py                # FastAPI 앱 진입점
-requirements.txt       # 의존성 목록
-Dockerfile             # 도커 설정
-static/                # 정적 파일
-config.py              # 환경설정
-qa_chain.py            # 질의응답 체인
-문서 임베딩/검색 관련 파일 등
-```
+## 개발 단계
+1. 프로젝트 구조/환경 세팅
+2. 데이터 수집(티커, 지수, 뉴스)
+3. 백엔드 API 구현
+4. 임베딩/벡터DB/RAG 파이프라인
+5. 번역 API 연동
+6. 프론트엔드 UI/UX 및 API 연동
+7. 통합 테스트/예산 검토
+8. 배포/운영
 
 ---
-
-## 기타
-
-- 모든 의존성은 Docker 이미지에 포함되어 있습니다.
-- 실제 배포는 하지 않았고, 로컬에서 Docker로 이미지 생성 및 실행까지 테스트했습니다.
-- 민감 정보는 환경변수로만 관리합니다.
-
+각 단계별로 코드와 설명을 추가하며 진행합니다.

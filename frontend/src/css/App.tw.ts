@@ -1,0 +1,11 @@
+export const root = "min-h-screen bg-gradient-to-b from-white to-blue-50 font-sans";
+export const menuBar = "w-full flex justify-between items-center bg-white px-4 py-0 min-h-[44px] border-b border-gray-200 sticky top-0 z-50 gap-2";
+export const menuBtn = "px-4 py-1 font-bold text-base transition-all duration-100 focus:outline-none rounded-none bg-transparent border-none shadow-none text-gray-800 hover:bg-gray-100 hover:text-black";
+export const menuBtnActive = "text-black border-b-2 border-black bg-transparent";
+export const menuBtnInactive = "text-gray-700";
+export const mainContent = "flex flex-col md:flex-row justify-center items-start gap-8 max-w-6xl mx-auto px-4 pt-0 pb-8 mt-6";
+export const section = "flex-1 bg-white rounded-2xl shadow-lg p-8 min-w-0 border border-gray-100 mt-0";
+export const analysisContent = "flex flex-col items-center max-w-4xl mx-auto px-4 pt-0 pb-8 mt-0";
+export const analysisSection = "w-full bg-white rounded-2xl shadow-lg p-8 border border-gray-100 mt-0";
+export const aside = "flex-1 max-w-md min-w-[320px] bg-white rounded-2xl shadow-lg p-8 flex flex-col items-start justify-start min-h-[500px] border border-gray-100 mt-0 ml-6";
+export const card = "w-full bg-white rounded-2xl shadow-lg p-5";

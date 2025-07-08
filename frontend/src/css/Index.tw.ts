@@ -1,0 +1,1 @@
+export const root = "min-h-screen bg-gradient-to-b from-white to-blue-50 font-sans";

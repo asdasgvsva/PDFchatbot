@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+pymongo
+chromadb
+openai
+python-dotenv
+requests
+yfinance
+finnhub-python
+google-cloud-translate
+pandas
+numpy
+
