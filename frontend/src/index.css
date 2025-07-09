@@ -5,5 +5,12 @@
 
 body {
   font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
-  background: linear-gradient(180deg, #f8fafc 0%, #e0e7ef 100%);
-} 
+}
+html, body {
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: #f8fafc !important;
+}

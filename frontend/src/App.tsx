@@ -10,11 +10,26 @@ import * as tw from './css/App.tw';
 import { FaSearch, FaBell, FaUserCircle } from 'react-icons/fa';
 
 function App() {
-  const [tab, setTab] = useState<'news' | 'analysis'>('news');
+  const [tab, setTab] = useState<'news' | 'analysis'>(() => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('tab') === 'analysis' ? 'analysis' : 'news';
+  });
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  // 탭 변경 시 URL 쿼리스트링 동기화
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (tab === 'analysis') {
+      params.set('tab', 'analysis');
+    } else {
+      params.delete('tab');
+    }
+    const newUrl = `${window.location.pathname}${params.toString() ? '?' + params.toString() : ''}`;
+    window.history.replaceState({}, '', newUrl);
+  }, [tab]);
 
   return (
     <div className={tw.root}>
@@ -53,16 +68,15 @@ function App() {
           </section>
           {/* CalendarEvents와 SectorRankings를 aside로 묶지 않고 각각 별도 카드로 분리 */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 20, maxWidth: 400, minWidth: 320, marginLeft: 24 }}>
-            <div className={tw.card}>
-              <CalendarEvents />
-            </div>
+            {/* CalendarEvents는 tw.card로 감싸지 않고 한 번만 카드 스타일 적용 */}
+            <CalendarEvents />
             <div className={tw.card}>
               <SectorRankings />
             </div>
           </div>
         </div>
       ) : (
-        <div className={tw.analysisContent}>
+        <div style={{ minHeight: 'calc(100vh - 104px)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <Analysis />
         </div>
       )}

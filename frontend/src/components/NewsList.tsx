@@ -13,22 +13,32 @@ const NewsList: React.FC = () => {
   const [news, setNews] = useState<NewsItem[]>([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [images, setImages] = useState<{ [url: string]: string | null }>({});
 
   useEffect(() => {
     fetch(`/api/news?page=${page}&limit=${PAGE_SIZE}`)
       .then(res => res.json())
       .then(data => {
-        console.log('뉴스 응답:', data);
-        // data가 배열이면 그대로, 객체면 data.news 사용
         const newsArr = Array.isArray(data) ? data : (data.news || []);
         setNews(newsArr);
         if (data.totalCount) {
           setTotalPages(Math.ceil(data.totalCount / PAGE_SIZE));
         }
+        // 이미지 미리 fetch
+        (newsArr as NewsItem[]).forEach((item: NewsItem) => {
+          if (!images[item.url]) {
+            fetch(`/api/news/image?headline=${encodeURIComponent(item.headline_ko)}`)
+              .then(res => res.json())
+              .then(imgData => {
+                setImages(prev => ({ ...prev, [item.url]: imgData.image_url }));
+              });
+          }
+        });
       })
       .catch(err => {
         console.error('뉴스 불러오기 실패:', err);
       });
+    // eslint-disable-next-line
   }, [page]);
 
   const renderPagination = () => {
@@ -70,11 +80,24 @@ const NewsList: React.FC = () => {
       <div style={{ fontWeight: 700, fontSize: 20, marginBottom: 16 }}>주요뉴스</div>
       {news.map((item, idx) => (
         <React.Fragment key={item.url}>
-          <div>
-            <a href={item.url} target="_blank" rel="noopener noreferrer" className={tw.headline} style={{ display: 'block', textDecoration: 'none' }}>
-              {item.headline_ko}
-            </a>
-            <div className={tw.summary}>{item.summary_ko}</div>
+          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 20 }}>
+            {images[item.url] ? (
+              <img
+                src={images[item.url] || ''}
+                alt="뉴스 이미지"
+                style={{ width: 96, height: 96, objectFit: 'cover', borderRadius: 10, background: '#f3f4f6', flexShrink: 0 }}
+              />
+            ) : (
+              <div style={{ width: 96, height: 96, borderRadius: 10, background: '#e5e7eb', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#bbb', fontSize: 32, flexShrink: 0 }}>
+                ?
+              </div>
+            )}
+            <div style={{ flex: 1 }}>
+              <a href={item.url} target="_blank" rel="noopener noreferrer" className={tw.headline} style={{ display: 'block', textDecoration: 'none' }}>
+                {item.headline_ko}
+              </a>
+              <div className={tw.summary}>{item.summary_ko}</div>
+            </div>
           </div>
           {idx !== news.length - 1 && (
             <div style={{ borderBottom: '1px solid #bbb', margin: '8px 0' }} />

@@ -19,7 +19,7 @@ const rankings = [
 
 const SectorRankings = () => (
   <>
-    <h3>🏆 섹터별 랭킹</h3>
+    <h3> 섹터별 랭킹</h3>
     {rankings.map(rank => (
       <>
         <div key={rank.type}>{rank.type}</div>
