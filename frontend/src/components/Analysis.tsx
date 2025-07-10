@@ -1,7 +1,13 @@
+<<<<<<< HEAD
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import * as tw from '../css/Analysis.tw';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, CartesianGrid } from 'recharts';
+=======
+import React, { useState } from "react";
+import axios from "axios";
+import * as tw from '../css/Analysis.tw';
+>>>>>>> 4dfa035daeb614c7a8807fbc966899c348a475ef
 
 interface Company {
   ticker: string;
@@ -14,6 +20,14 @@ interface EarningsRow {
   estimate: number;
 }
 
+<<<<<<< HEAD
+=======
+interface QuoteRow {
+  date: string;
+  close: number;
+}
+
+>>>>>>> 4dfa035daeb614c7a8807fbc966899c348a475ef
 interface NewsRow {
   headline: string;
   summary: string;
@@ -24,6 +38,13 @@ interface NewsRow {
 interface AnalysisResult {
   company: Company;
   analysis: string;
+<<<<<<< HEAD
+=======
+  charts: {
+    earnings_chart: EarningsRow[];
+    price_chart: QuoteRow[];
+  };
+>>>>>>> 4dfa035daeb614c7a8807fbc966899c348a475ef
   tables: {
     earnings_table: EarningsRow[];
     news_table: NewsRow[];
@@ -31,6 +52,7 @@ interface AnalysisResult {
   news: NewsRow[];
 }
 
+<<<<<<< HEAD
 const Analysis = () => {
   const [query, setQuery] = useState('');
   const [error, setError] = useState('');
@@ -114,12 +136,30 @@ const Analysis = () => {
       setResult(res.data);
     } catch (e: any) {
       setError(e.response?.data?.detail || '분석 결과를 불러오지 못했습니다.');
+=======
+const Analysis: React.FC = () => {
+  const [ticker, setTicker] = useState("");
+  const [result, setResult] = useState<AnalysisResult | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSearch = async () => {
+    setLoading(true);
+    setError("");
+    setResult(null);
+    try {
+      const res = await axios.get(`/api/company/analysis?ticker=${ticker}`);
+      setResult(res.data);
+    } catch (e: any) {
+      setError(e.response?.data?.detail || "분석 중 오류가 발생했습니다.");
+>>>>>>> 4dfa035daeb614c7a8807fbc966899c348a475ef
     } finally {
       setLoading(false);
     }
   };
 
   return (
+<<<<<<< HEAD
     <div className={tw.container} style={{ position: 'relative' }}>
       <form className={tw.searchBar} onSubmit={handleSearch} autoComplete="off" style={{ marginBottom: 40 }}>
         <div style={{ position: 'relative', flex: 1 }}>
@@ -304,12 +344,68 @@ const Analysis = () => {
               ))}
             </ul>
           </div>
+=======
+    <div className={tw.container}>
+      <h2 className="text-2xl font-bold mb-4">기업분석</h2>
+      <div className={tw.searchBar}>
+        <input
+          value={ticker}
+          onChange={e => setTicker(e.target.value.toUpperCase())}
+          placeholder="티커 입력 (예: IONQ)"
+          className={tw.input}
+        />
+        <button onClick={handleSearch} disabled={loading || !ticker} className={tw.button}>
+          {loading ? "분석 중..." : "분석"}
+        </button>
+      </div>
+      {error && <div className={tw.error}>{error}</div>}
+      {result && (
+        <div className={tw.result}>
+          <h3 className="text-xl font-bold mb-2">{result.company.name} ({result.company.ticker})</h3>
+          <h4 className="font-semibold mb-1">분석서</h4>
+          <pre className={tw.report}>{result.analysis}</pre>
+
+          <h4 className="font-semibold mb-1">실적 차트</h4>
+          <div className={tw.chartPlaceholder}>차트 영역 (예: recharts, chart.js 등)</div>
+
+          <h4 className="font-semibold mb-1">주가 차트</h4>
+          <div className={tw.chartPlaceholder}>차트 영역 (예: recharts, chart.js 등)</div>
+
+          <h4 className="font-semibold mb-1">실적 표</h4>
+          <table className={tw.table}>
+            <thead>
+              <tr>
+                <th className={tw.th}>분기</th><th className={tw.th}>실적</th><th className={tw.th}>예상</th>
+              </tr>
+            </thead>
+            <tbody>
+              {result.tables.earnings_table.map(row => (
+                <tr key={row.period}>
+                  <td className={tw.td}>{row.period}</td>
+                  <td className={tw.td}>{row.actual}</td>
+                  <td className={tw.td}>{row.estimate}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          <h4 className="font-semibold mb-1">주요 뉴스</h4>
+          <ul className={tw.newsList}>
+            {result.news.map(n => (
+              <li key={n.url} className={tw.newsItem}>
+                <a href={n.url} target="_blank" rel="noopener noreferrer" className={tw.newsLink}>{n.headline}</a>
+                <div className={tw.newsSummary}>{n.summary}</div>
+              </li>
+            ))}
+          </ul>
+>>>>>>> 4dfa035daeb614c7a8807fbc966899c348a475ef
         </div>
       )}
     </div>
   );
 };
 
+<<<<<<< HEAD
 export default Analysis;
 
 <style>{`
@@ -319,3 +415,6 @@ export default Analysis;
 }
 .analysis-spinner { vertical-align: middle; }
 `}</style> 
+=======
+export default Analysis; 
+>>>>>>> 4dfa035daeb614c7a8807fbc966899c348a475ef

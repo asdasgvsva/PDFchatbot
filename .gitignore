@@ -14,6 +14,7 @@ frontend/node_modules/
 
 # Frontend build output
 frontend/build/
+<<<<<<< HEAD
 .DS_Store
 Thumbs.db
 .vscode/
@@ -22,3 +23,21 @@ Thumbs.db
 .env.*
 *.sqlite3
 *.db
+=======
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Logs
+*.log
+
+# Environment variables
+.env
+.env.*
+
+# Miscellaneous
+*.sqlite3
+*.db 
+>>>>>>> 4dfa035daeb614c7a8807fbc966899c348a475ef

@@ -1,7 +1,11 @@
 {
   "dependencies": {
+<<<<<<< HEAD
     "react-icons": "^5.5.0",
     "recharts": "^3.1.0"
+=======
+    "react-icons": "^5.5.0"
+>>>>>>> 4dfa035daeb614c7a8807fbc966899c348a475ef
   },
   "name": "fastapi_rag",
   "version": "1.0.0",

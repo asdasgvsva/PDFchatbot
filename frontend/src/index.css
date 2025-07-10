@@ -5,6 +5,7 @@
 
 body {
   font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+<<<<<<< HEAD
 }
 html, body {
   width: 100vw;
@@ -14,3 +15,7 @@ html, body {
   padding: 0;
   background: #f8fafc !important;
 }
+=======
+  background: linear-gradient(180deg, #f8fafc 0%, #e0e7ef 100%);
+} 
+>>>>>>> 4dfa035daeb614c7a8807fbc966899c348a475ef

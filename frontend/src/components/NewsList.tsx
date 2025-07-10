@@ -13,17 +13,26 @@ const NewsList: React.FC = () => {
   const [news, setNews] = useState<NewsItem[]>([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+<<<<<<< HEAD
   const [images, setImages] = useState<{ [url: string]: string | null }>({});
+=======
+>>>>>>> 4dfa035daeb614c7a8807fbc966899c348a475ef
 
   useEffect(() => {
     fetch(`/api/news?page=${page}&limit=${PAGE_SIZE}`)
       .then(res => res.json())
       .then(data => {
+<<<<<<< HEAD
+=======
+        console.log('뉴스 응답:', data);
+        // data가 배열이면 그대로, 객체면 data.news 사용
+>>>>>>> 4dfa035daeb614c7a8807fbc966899c348a475ef
         const newsArr = Array.isArray(data) ? data : (data.news || []);
         setNews(newsArr);
         if (data.totalCount) {
           setTotalPages(Math.ceil(data.totalCount / PAGE_SIZE));
         }
+<<<<<<< HEAD
         // 이미지 미리 fetch
         (newsArr as NewsItem[]).forEach((item: NewsItem) => {
           if (!images[item.url]) {
@@ -34,11 +43,16 @@ const NewsList: React.FC = () => {
               });
           }
         });
+=======
+>>>>>>> 4dfa035daeb614c7a8807fbc966899c348a475ef
       })
       .catch(err => {
         console.error('뉴스 불러오기 실패:', err);
       });
+<<<<<<< HEAD
     // eslint-disable-next-line
+=======
+>>>>>>> 4dfa035daeb614c7a8807fbc966899c348a475ef
   }, [page]);
 
   const renderPagination = () => {
@@ -80,6 +94,7 @@ const NewsList: React.FC = () => {
       <div style={{ fontWeight: 700, fontSize: 20, marginBottom: 16 }}>주요뉴스</div>
       {news.map((item, idx) => (
         <React.Fragment key={item.url}>
+<<<<<<< HEAD
           <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 20 }}>
             {images[item.url] ? (
               <img
@@ -98,6 +113,13 @@ const NewsList: React.FC = () => {
               </a>
               <div className={tw.summary}>{item.summary_ko}</div>
             </div>
+=======
+          <div>
+            <a href={item.url} target="_blank" rel="noopener noreferrer" className={tw.headline} style={{ display: 'block', textDecoration: 'none' }}>
+              {item.headline_ko}
+            </a>
+            <div className={tw.summary}>{item.summary_ko}</div>
+>>>>>>> 4dfa035daeb614c7a8807fbc966899c348a475ef
           </div>
           {idx !== news.length - 1 && (
             <div style={{ borderBottom: '1px solid #bbb', margin: '8px 0' }} />

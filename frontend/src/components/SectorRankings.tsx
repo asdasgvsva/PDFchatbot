@@ -19,7 +19,11 @@ const rankings = [
 
 const SectorRankings = () => (
   <>
+<<<<<<< HEAD
     <h3> 섹터별 랭킹</h3>
+=======
+    <h3>🏆 섹터별 랭킹</h3>
+>>>>>>> 4dfa035daeb614c7a8807fbc966899c348a475ef
     {rankings.map(rank => (
       <>
         <div key={rank.type}>{rank.type}</div>
